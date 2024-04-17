@@ -68,10 +68,8 @@ app.post("/", function(req, res){
   const newItem = new Item({
     name: itemName
   });
-  console.log(listName);
   if (listName === "Today"){
   newItem.save();
-  console.log(newItem);
   res.redirect("/");
   } else{
     List.findOne({ListName : listName}).then(foundlist => {
@@ -132,10 +130,10 @@ app.get("/:paramName", function(req,res){
   
 });
 
-app.get("/about", function(req, res){
-  res.render("about");
-});
-
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, function() {
+  console.log("Server started on port "+ port);
 });
